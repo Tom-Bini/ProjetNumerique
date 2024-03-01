@@ -82,3 +82,4 @@ def bissection(f,x0,x1,tol):
         return x2,statut
         
     return x2,statut
+    coucou
