@@ -1,10 +1,3 @@
-import numpy as np
-
-def f(x):
-    y = np.cos(x)
-    return y
-
-
 def secante(f,x0,x1,tol):
     nmax=1000
     y0=f(x0)
