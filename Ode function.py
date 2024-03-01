@@ -1,2 +1,2 @@
-def odefucntion(c,z):
+def odefunction(c,z):
   
