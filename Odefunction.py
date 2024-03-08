@@ -1,41 +1,37 @@
-CH4 = 0     #Concentration de CH4
-H2O = 0     #Concentration de H2O
-H2 = 0      #Concentration de H2
-CO = 0      #Concentration de CO
-CO2 = 0     #Concentration de CO2
-X = 0       #Conversion fractionnaire
-Xu = 0      #Conversion fractionnaire ultime
-T = 0       #Température
-P = 0       #Pression totale
-epsilon = 0 #Porosité du réacteur
-eta = 0     #Efficacité du catalyseur
-rhoCat = 0  #Masse volumique du catalyseur
-ri = 0      
-rhoCaO = 0  #Masse volumique des pellets de CaO
-rCbn = 0    #Taux de consommation de CO2 par carbonatation
-ug = 0      
-MCaO = 56   #Masse molaire du CaO
-uS = 0      #Vitesse linéaire du lit mobile le long du réacteur
-mu = 0      #Viscosité
-dp = 0      #diamètre des catalyseurs (Nickel)
-rhog = 0    #masse volumique de la phase gazeuse
-rhos = 0    #masse volumique moyenne des deux solides au sein du réacteur
+from Constantes import *
 
 c = [CH4, H2O, H2, CO, CO2, X, T, P]
 
-
-
 def odefunction(z,c):
+    
+    den = 1 + KCO * pCO + KH2 * pH2 + KCH4 * pCH4 + KH2O * pH2O / pH2
+    
+    R1 = k1 * (pCH4 * pH2O - pH2 ** 3 * pCO / K1) / (den ** 2 * pH2 ** 2.5)
+    
+    R2 = k2 * (pCH4 * pH2O ** 2 - pH2 ** 4 * pCO2 / K2) / (den ** 2 * pH2 ** 3.5)
+    
+    R3 = k3 * (pCO * pH2O - pH2 * pCO2 / K3) / (den ** 2 * pH2)
+    
+    rCH4 = - R1 - R2
+    rH2O = - R1 - 2 * R2 - R3
+    rH2 = 3 * R1 + 4 * R2 + R3
+    rCO = R1 - R3
+    rCO2 = R2 + R3
+    
+    r = [rCH4, rH20, rH2, rCO, rCO2]
 
     i = 0
     
     while i<5:
         
-        c[i] = (1 - epsilon) * (eta * rhoCat * ri - rhoCaO * rCbn) / ug
+        c[i] = (1 - epsilon) * (eta * rhoCat * r[i] - rhoCaO * rCbn) / ug
         
         i += 1
         
     c[5] = MCaO * rCbn / uS
+    
+    c[6] = - ((1 - epsilon) * eta * rhoCat + (R1 * HR1 + R2 * HR2 + R3 * HR3) - (1 - epsilon) * rhoCaO * rCbn * Hcbn + hW * (TW - T) * 4 / DR) / ((1 - epsilon) * rhos * uS * Cps + rhog * ug * Cpg)
+    
     c[7] = - (rhog * ug ** 2 / dp)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (dp * rhog * ug) + 1.75) * 10 ** (-5)
     
     return c
