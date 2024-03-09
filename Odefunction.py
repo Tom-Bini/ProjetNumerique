@@ -5,12 +5,22 @@ c = [CH4, H2O, H2, CO, CO2, X, T, P]
 
 def odefunction(z,c):
     
-    den = 1 + KCO * PCO + KH2 * PH2 + KCH4 * PCH4 + KH2O * PH2O / PH2
+    K1 = 4.707 * 10 ** 12 * np.exp(-224000/(R * T))
+    K3 = 1.142 * 10 ** (-2) * np.exp(37300/(R * T))
+    K2 = K1 * K3
     
-    R1 = k1 * (PCH4 * PH2O - PH2 ** 3 * PCO / K1) / (den ** 2 * PH2 ** 2.5)
+    k1 = 1.842 / 3600 * 10 ** (-4) * np.exp((-240100/R) * (1/T - 1/648))
+    k2 = 2.193 / 3600 * 10 ** (-5) * np.exp((-243900/R) * (1/T - 1/648))
+    k3 = 7.558 / 3600 * np.exp((-67130/R) * (1/T - 1/648))
     
-    R2 = k2 * (PCH4 * PH2O ** 2 - PH2 ** 4 * PCO2 / K2) / (den ** 2 * PH2 ** 3.5)
+    KCH4 = 0.179 * np.exp((38280/R) * (1/T - 1/823))
+    KH2O = 0.4152 * np.exp((-88680/R) * (1/T - 1/823))
+    KH2 = 0.0296 * np.exp((82900/R) * (1/T - 1/648))
+    KCO = 40.91 * np.exp((70650/R) * (1/T - 1/648))
     
+    den = 1 + KCO * PCO + KH2 * PH2 + KCH4 * PCH4 + KH2O * PH2O / PH2    
+    R1 = k1 * (PCH4 * PH2O - PH2 ** 3 * PCO / K1) / (den ** 2 * PH2 ** 2.5)    
+    R2 = k2 * (PCH4 * PH2O ** 2 - PH2 ** 4 * PCO2 / K2) / (den ** 2 * PH2 ** 3.5)    
     R3 = k3 * (PCO * PH2O - PH2 * PCO2 / K3) / (den ** 2 * PH2)
     
     rCH4 = - R1 - R2
