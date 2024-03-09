@@ -1,5 +1,5 @@
 import numpy as np
-from Constantes import CH4,H2O,H2,CO,CO2,X,Xu,T,P,epsilon,eta,rhoCat,rhoCaO,rCbn,ug,MCaO,MCH4,MH2O,MH2,MCO,MCO2,uS,mu,dp,WCaO,Wcat,Cps,Cpg,DR,kg,ks,Mk,Nk,Mb,Nb,HR1,HR2,HR3,Hcbn,TW,zf,XCH4,XH2O,XCaO,XH2,XCO,XCO2,R,PCaO,PCH4,PH2O,PH2,PCO,PCO2,rhos,k0z
+from Constantes import CH4,H2O,H2,CO,CO2,X,Xu,T,P,epsilon,eta,rhoCat,rhoCaO,rCbn,ug,MCaO,MCH4,MH2O,MH2,MCO,MCO2,uS,mu,dp,WCaO,Wcat,Cps,Cpg,DR,kg,ks,Mk,Nk,Mb,Nb,HR1,HR2,HR3,Hcbn,TW,zf,XCH4,XH2O,XCaO,XH2,XCO,XCO2,R,PCaO,PCH4,PH2O,PH2,PCO,PCO2,rhos,k0z,intervalleIntegration
 from scipy.integrate import solve_ivp
 
 c = [CH4, H2O, H2, CO, CO2, X, T, P]
@@ -55,4 +55,4 @@ def odefunction(z,c):
     
     return c
 
-solutionOdeFunction = solve_ivp(odefunction)
+solutionOdeFunction = solve_ivp(odefunction,intervalleIntegration)
