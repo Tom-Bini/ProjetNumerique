@@ -55,5 +55,6 @@ PCO = P * XCO
 PCO2 = P * XCO2
 rhos = (Wcat + WCaO) / ((Wcat / rhoCat) + (WCaO / rhoCaO))    #Masse volumique moyenne des deux solides au sein du réacteur
 intervalleIntegration = (0,0.29)
+etatsInitiaux = (CH4, H2O, H2, CO, CO2, X, T, P)
 k0z = kg * (epsilon + ((1 - epsilon)/((0.139 * epsilon) - 0.0339 + (2/3) * (kg/ks))))
 

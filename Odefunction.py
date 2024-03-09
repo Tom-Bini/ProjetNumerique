@@ -55,4 +55,4 @@ def odefunction(z,c):
     
     return c
 
-solutionOdeFunction = solve_ivp(odefunction,intervalleIntegration)
+solutionOdeFunction = solve_ivp(odefunction,intervalleIntegration,etatsInitiaux)
