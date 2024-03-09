@@ -1,16 +1,17 @@
 from Constantes import *
+from scipy.integrate import solve_ivp
 
 c = [CH4, H2O, H2, CO, CO2, X, T, P]
 
 def odefunction(z,c):
     
-    den = 1 + KCO * pCO + KH2 * pH2 + KCH4 * pCH4 + KH2O * pH2O / pH2
+    den = 1 + KCO * PCO + KH2 * PH2 + KCH4 * PCH4 + KH2O * PH2O / PH2
     
-    R1 = k1 * (pCH4 * pH2O - pH2 ** 3 * pCO / K1) / (den ** 2 * pH2 ** 2.5)
+    R1 = k1 * (PCH4 * PH2O - PH2 ** 3 * PCO / K1) / (den ** 2 * PH2 ** 2.5)
     
-    R2 = k2 * (pCH4 * pH2O ** 2 - pH2 ** 4 * pCO2 / K2) / (den ** 2 * pH2 ** 3.5)
+    R2 = k2 * (PCH4 * PH2O ** 2 - PH2 ** 4 * PCO2 / K2) / (den ** 2 * PH2 ** 3.5)
     
-    R3 = k3 * (pCO * pH2O - pH2 * pCO2 / K3) / (den ** 2 * pH2)
+    R3 = k3 * (PCO * PH2O - PH2 * PCO2 / K3) / (den ** 2 * PH2)
     
     rCH4 = - R1 - R2
     rH2O = - R1 - 2 * R2 - R3
@@ -18,7 +19,7 @@ def odefunction(z,c):
     rCO = R1 - R3
     rCO2 = R2 + R3
     
-    r = [rCH4, rH20, rH2, rCO, rCO2]
+    r = [rCH4, rH2O, rH2, rCO, rCO2]
 
     i = 0
     
@@ -35,3 +36,5 @@ def odefunction(z,c):
     c[7] = - (rhog * ug ** 2 / dp)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (dp * rhog * ug) + 1.75) * 10 ** (-5)
     
     return c
+
+solutionOdeFunction = solve_ivp(odefunction)
