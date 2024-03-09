@@ -54,5 +54,3 @@ def odefunction(z,c):
     c[7] = - (rhog * ug ** 2 / dp)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (dp * rhog * ug) + 1.75) * 10 ** (-5)
     
     return c
-
-solutionOdeFunction = solve_ivp(odefunction,intervalleIntegration,etatsInitiaux)
