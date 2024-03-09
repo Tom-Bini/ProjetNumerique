@@ -54,11 +54,6 @@ PH2 = P * XH2
 PCO = P * XCO
 PCO2 = P * XCO2
 rhos = (Wcat + WCaO) / ((Wcat / rhoCat) + (WCaO / rhoCaO))    #Masse volumique moyenne des deux solides au sein du réacteur
-rhog = (MCaO * PCaO + MCH4 * PCH4 + MH2O * PH2O + MH2 * PH2 + MCO * PCO + MCO2 * PCO2)/ (R * T)     #Masse volumique de la phase gazeuse
-Rep = ug * epsilon * rhog * dp / mu
+
 k0z = kg * (epsilon + ((1 - epsilon)/((0.139 * epsilon) - 0.0339 + (2/3) * (kg/ks))))
-if Rep < 20 :
-    hW = 6.15 * (k0z / DR)
-else :
-    if 0.05 < (dp / DR) < 0.3 :
-        hW = 2.03 * (kg/DR) * Rep ** 0.8 * np.exp((-6 * dp)/DR)
+
