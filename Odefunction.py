@@ -47,7 +47,7 @@ def odefunction(z,c):
         
         i += 1
         
-    c[5] = (Mk * np.exp(Nk / T) / uS) * (1 - X / (Mk * exp(Nk / T) * Mb * exp(Nb / T))) ** 2
+    c[5] = (Mk * np.exp(Nk / T) / uS) * (1 - X / (Mk * np.exp(Nk / T) * Mb * np.exp(Nb / T))) ** 2
     
     c[6] = - ((1 - epsilon) * eta * rhoCat + (R1 * HR1 + R2 * HR2 + R3 * HR3) - (1 - epsilon) * rhoCaO * rCbn * Hcbn + hW * (TW - T) * 4 / DR) / ((1 - epsilon) * rhos * uS * Cps + rhog * ug * Cpg)
     
