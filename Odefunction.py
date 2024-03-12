@@ -1,55 +1,93 @@
 import numpy as np
-from Constantes import CCH4,CH2O,CH2,CCO,CCO2,X,T,P,epsilon,eta,rhoCat,rhoCaO,rCbn,ug,MCaO,MCH4,MH2O,MH2,MCO,MCO2,uS,mu,dp,Cps,Cpg,DR,kg,Mk,Nk,Mb,Nb,HR1,HR2,HR3,Hcbn,TW,R,PCaO,PCH4,PH2O,PH2,PCO,PCO2,rhos,k0z
+from Constantes import C_CH4,C_H2O,C_H2,C_CO,C_CO2,X,T,P,epsilon,eta,rho_Cat,rho_CaO,u_g,M_CaO,M_CH4,M_H2O,M_H2,M_CO,M_CO2,u_S,mu,d_p,C_ps,C_pg,D_R,k_g,M_k,N_k,M_b,N_b,H_R1,H_R2,H_R3,H_cbn,T_W,R,rho_s,k0_z,V
 
-c = [CCH4, CH2O, CH2, CCO, CCO2, X, T, P]
+c = [C_CH4, C_H2O, C_H2, C_CO, C_CO2, X, T, P]
 
 def odefunction(z,c):
     
-    rhog = (MCaO * PCaO + MCH4 * PCH4 + MH2O * PH2O + MH2 * PH2 + MCO * PCO + MCO2 * PCO2)/ (R * T)     #Masse volumique de la phase gazeuse
-    Rep = ug * epsilon * rhog * dp / mu
-    if Rep < 20 :
-        hW = 6.15 * (k0z / DR)
-    else :
-        if 0.05 < (dp / DR) < 0.3 :
-            hW = 2.03 * (kg/DR) * Rep ** 0.8 * np.exp((-6 * dp)/DR)
-    K1 = 4.707 * 10 ** 12 * np.exp(-224000/(R * T))
-    K3 = 1.142 * 10 ** (-2) * np.exp(37300/(R * T))
-    K2 = K1 * K3
+    C_CH4 = c[0]
+    C_H2O = c[1]
+    C_H2 = c[2]
+    C_CO = c[3]
+    C_CO2 = c[4]
+    X = c[5]
+    T = c[6]
+    P = c[7]
+    n_CH4 = C_CH4 * V
+    n_H2O = C_H2O * V
+    n_H2 = C_H2 * V
+    n_CO = C_CO * V
+    n_CO2 = C_CO2 * V
+    n_tot = n_CH4 + n_H2O + n_H2 + n_CO + n_CO2
+    X_CH4 = n_CH4 / n_tot
+    X_H2O = n_H2O / n_tot
+    X_H2 = n_H2 / n_tot
+    X_CO = n_CO / n_tot
+    X_CO2 = n_CO2 / n_tot
+    P_CH4 = P * X_CH4
+    P_H2O = P * X_H2O
+    P_H2 = P * X_H2
+    P_CO = P * X_CO
+    P_CO2 = P * X_CO2
+            
+    k_c = M_k * np.exp(N_k / T)
     
-    k1 = 1.842 / 3600 * 10 ** (-4) * np.exp((-240100/R) * (1/T - 1/648))
-    k2 = 2.193 / 3600 * 10 ** (-5) * np.exp((-243900/R) * (1/T - 1/648))
-    k3 = 7.558 / 3600 * np.exp((-67130/R) * (1/T - 1/648))
+    b = M_b * np.exp(N_b / T)
+            
+    X_u = k_c * b
     
-    KCH4 = 0.179 * np.exp((38280/R) * (1/T - 1/823))
-    KH2O = 0.4152 * np.exp((-88680/R) * (1/T - 1/823))
-    KH2 = 0.0296 * np.exp((82900/R) * (1/T - 1/648))
-    KCO = 40.91 * np.exp((70650/R) * (1/T - 1/648))
+    r_cbn = (k_c / M_CaO) * (1 - X / X_u) ** 2
     
-    den = 1 + KCO * PCO + KH2 * PH2 + KCH4 * PCH4 + KH2O * PH2O / PH2    
-    R1 = k1 * (PCH4 * PH2O - PH2 ** 3 * PCO / K1) / (den ** 2 * PH2 ** 2.5)    
-    R2 = k2 * (PCH4 * PH2O ** 2 - PH2 ** 4 * PCO2 / K2) / (den ** 2 * PH2 ** 3.5)    
-    R3 = k3 * (PCO * PH2O - PH2 * PCO2 / K3) / (den ** 2 * PH2)
-    
-    rCH4 = - R1 - R2
-    rH2O = - R1 - 2 * R2 - R3
-    rH2 = 3 * R1 + 4 * R2 + R3
-    rCO = R1 - R3
-    rCO2 = R2 + R3
-    
-    r = [rCH4, rH2O, rH2, rCO, rCO2]
 
+    K_1 = 4.707 * 10 ** 12 * np.exp(-224000/(R * T))
+    K_3 = 1.142 * 10 ** (-2) * np.exp(37300/(R * T))
+    K_2 = K_1 * K_3
+    
+    k_1 = 1.842 / 3600 * 10 ** (-4) * np.exp((-240100/R) * (1/T - 1/648))
+    k_2 = 2.193 / 3600 * 10 ** (-5) * np.exp((-243900/R) * (1/T - 1/648))
+    k_3 = 7.558 / 3600 * np.exp((-67130/R) * (1/T - 1/648))
+    
+    K_CH4 = 0.179 * np.exp((38280/R) * (1/T - 1/823))
+    K_H2O = 0.4152 * np.exp((-88680/R) * (1/T - 1/823))
+    K_H2 = 0.0296 * np.exp((82900/R) * (1/T - 1/648))
+    K_CO = 40.91 * np.exp((70650/R) * (1/T - 1/648))
+    
+    den = 1 + K_CO * P_CO + K_H2 * P_H2 + K_CH4 * P_CH4 + K_H2O * P_H2O / P_H2
+    print("DEN :")
+    print(den)
+    
+    R_1 = k_1 * (P_CH4 * P_H2O - P_H2 ** 3 * P_CO / K_1) / (den ** 2 * P_H2 ** 2.5)    
+    R_2 = k_2 * (P_CH4 * P_H2O ** 2 - P_H2 ** 4 * P_CO2 / K_2) / (den ** 2 * P_H2 ** 3.5)    
+    R_3 = k_3 * (P_CO * P_H2O - P_H2 * P_CO2 / K_3) / (den ** 2 * P_H2)
+    
+    r_CH4 = - R_1 - R_2
+    r_H2O = - R_1 - 2 * R_2 - R_3
+    r_H2 = 3 * R_1 + 4 * R_2 + R_3
+    r_CO = R_1 - R_3
+    r_CO2 = R_2 + R_3
+    
+    rho_g = (M_CH4 * P_CH4 + M_H2O * P_H2O + M_H2 * P_H2 + M_CO * P_CO + M_CO2 * P_CO2)/ (R * T)     #Masse volumique de la phase gazeuse
+    Rep = u_g * epsilon * rho_g * d_p / mu
+    if Rep < 20 :
+        h_W = 6.15 * (k0_z / D_R)
+    else :
+        if 0.05 < (d_p / D_R) < 0.3 :
+            h_W = 2.03 * (k_g / D_R) * Rep ** 0.8 * np.exp((-6 * d_p) /D_R)
+    
+    r = [r_CH4, r_H2O, r_H2, r_CO, r_CO2]
+    
     i = 0
     
     while i<5:
         
-        c[i] = (1 - epsilon) * (eta * rhoCat * r[i] - rhoCaO * rCbn) / ug
+        c[i] = (1 - epsilon) * (eta * rho_Cat * r[i] - rho_CaO * r_cbn) / u_g
         
         i += 1
         
-    c[5] = (Mk * np.exp(Nk / T) / uS) * (1 - X / (Mk * np.exp(Nk / T) * Mb * np.exp(Nb / T))) ** 2
+    c[5] = (M_CaO / u_S) * r_cbn
     
-    c[6] = - ((1 - epsilon) * eta * rhoCat + (R1 * HR1 + R2 * HR2 + R3 * HR3) - (1 - epsilon) * rhoCaO * rCbn * Hcbn + hW * (TW - T) * 4 / DR) / ((1 - epsilon) * rhos * uS * Cps + rhog * ug * Cpg)
+    c[6] = - ((1 - epsilon) * eta * rho_Cat + (R_1 * H_R1 + R_2 * H_R2 + R_3 * H_R3) - (1 - epsilon) * rho_CaO * r_cbn * H_cbn + h_W * (T_W - T) * 4 / D_R) / ((1 - epsilon) * rho_s * u_S * C_ps + rho_g * u_g * C_pg)
     
-    c[7] = - (rhog * ug ** 2 / dp)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (dp * rhog * ug) + 1.75) * 10 ** (-5)
+    c[7] = - (rho_g * u_g ** 2 / d_p)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (d_p * rho_g * u_g) + 1.75) * 10 ** (-5)
     
     return c
