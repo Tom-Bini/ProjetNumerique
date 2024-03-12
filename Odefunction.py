@@ -4,6 +4,8 @@ from Constantes import C_CH4,C_H2O,C_H2,C_CO,C_CO2,X,T,P,epsilon,eta,rho_Cat,rho
 c = [C_CH4, C_H2O, C_H2, C_CO, C_CO2, X, T, P]
 
 def odefunction(z,c):
+    print("C :")
+    print(c)
     
     C_CH4 = c[0]
     C_H2O = c[1]

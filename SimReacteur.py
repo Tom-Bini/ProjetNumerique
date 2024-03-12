@@ -12,10 +12,14 @@ def calculConcentrationsEuler(intervalle,C_0) :
     
     for i in range(n) :
         for j in range(len(C_0)):
+            print("C0 :")
             print(C_0)
+            C_temp = np.zeros(len(C_0))
             C_temp = odefunction(intervalle[0] + i * h, C[:,i])
             C_0 = C_0 + h * C_temp
             C[:,i] = C_0
+            print("C :")
+            print(C)
             
     return h,C
 
