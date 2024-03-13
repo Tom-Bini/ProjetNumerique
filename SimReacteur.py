@@ -7,10 +7,10 @@ def calculConcentrationsEuler(intervalle,C_0) :
     print(C_0)
     n = 10  #nombre de pas
     h = (intervalle[0]-intervalle[1])/n
-    C = np.zeros((len(C_0), n))
-    C[:,0] = C_0
+    C = np.zeros((n + 1, len(C_0)))
+    C_temp = C_0
     
-    for i in range(n) :
+   '''for i in range(n) :
         for j in range(len(C_0)):
             print("C0 :")
             print(C_0)
@@ -19,8 +19,21 @@ def calculConcentrationsEuler(intervalle,C_0) :
             C_0 = C_0 + h * C_temp
             C[:,i] = C_0
             print("C :")
-            print(C)
+            print(C)'''
             
+            
+    for i in range(n) :
+        print("C0 :")
+        print(C_0)
+        C[i] = Cz
+        Cz = odefunction(intervalle[0] + (i + 1) * h, C_temp)
+        
+        
+        
+        
+        
+        print("C :")
+        print(C)
     return h,C
 
 z, C = calculConcentrationsEuler(intervalleIntegration,C_0)

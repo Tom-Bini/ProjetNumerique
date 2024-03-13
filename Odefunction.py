@@ -1,7 +1,7 @@
 import numpy as np
 from Constantes import C_CH4,C_H2O,C_H2,C_CO,C_CO2,X,T,P,epsilon,eta,rho_Cat,rho_CaO,u_g,M_CaO,M_CH4,M_H2O,M_H2,M_CO,M_CO2,u_S,mu,d_p,C_ps,C_pg,D_R,k_g,M_k,N_k,M_b,N_b,H_R1,H_R2,H_R3,H_cbn,T_W,R,rho_s,k0_z,V
 
-c = [C_CH4, C_H2O, C_H2, C_CO, C_CO2, X, T, P]
+c = np.array([C_CH4, C_H2O, C_H2, C_CO, C_CO2, X, T, P])
 
 def odefunction(z,c):
     print("C :")
