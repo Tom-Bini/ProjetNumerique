@@ -34,6 +34,8 @@ def odefunction(z,c):
             
     k_c = M_k * np.exp(N_k / T)
     
+    print(k_c)
+    
     b = M_b * np.exp(N_b / T)
             
     X_u = k_c * b
@@ -68,7 +70,7 @@ def odefunction(z,c):
     r_CO = R_1 - R_3
     r_CO2 = R_2 + R_3
     
-    rho_g = (M_CH4 * P_CH4 + M_H2O * P_H2O + M_H2 * P_H2 + M_CO * P_CO + M_CO2 * P_CO2)/ (R * T)     #Masse volumique de la phase gazeuse
+    rho_g = (M_CH4 * P_CH4 + M_H2O * P_H2O + M_H2 * P_H2 + M_CO * P_CO + M_CO2 * P_CO2) / (R * T)     #Masse volumique de la phase gazeuse
     Rep = u_g * epsilon * rho_g * d_p / mu
     if Rep < 20 :
         h_W = 6.15 * (k0_z / D_R)
@@ -84,12 +86,12 @@ def odefunction(z,c):
         
         c[i] = (1 - epsilon) * (eta * rho_Cat * r[i] - rho_CaO * r_cbn) / u_g
         
-        i += 1
+        i = i + 1
         
     c[5] = (M_CaO / u_S) * r_cbn
     
-    c[6] = - ((1 - epsilon) * eta * rho_Cat + (R_1 * H_R1 + R_2 * H_R2 + R_3 * H_R3) - (1 - epsilon) * rho_CaO * r_cbn * H_cbn + h_W * (T_W - T) * 4 / D_R) / ((1 - epsilon) * rho_s * u_S * C_ps + rho_g * u_g * C_pg)
+    c[6] = ( - (1 - epsilon) * eta * rho_Cat * (R_1 * H_R1 + R_2 * H_R2 + R_3 * H_R3) - (1 - epsilon) * rho_CaO * r_cbn * H_cbn + h_W * (T_W - T) * 4 / D_R) / ((1 - epsilon) * rho_s * u_S * C_ps + rho_g * u_g * C_pg)
     
-    c[7] = - (rho_g * u_g ** 2 / d_p)*((1 - epsilon) / epsilon)*(150 * (1 - epsilon) * mu / (d_p * rho_g * u_g) + 1.75) * 10 ** (-5)
+    c[7] = - (rho_g * u_g ** 2 / d_p) * ((1 - epsilon) / epsilon) * (150 * (1 - epsilon) * mu / (d_p * rho_g * u_g) + 1.75) * 10 ** (-5)
     
     return c
