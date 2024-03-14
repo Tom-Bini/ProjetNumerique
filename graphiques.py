@@ -1,6 +1,14 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from SimReacteur import z, C
 
-plt.plot(0,1)
+x = z
 
-plt.show()
+y = C
+
+for i in range(len(C)):
+
+    plt.plot(x, y[:,i])
+    
+    
+plt.show

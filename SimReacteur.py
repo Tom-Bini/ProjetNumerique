@@ -6,8 +6,9 @@ import scipy as sci
 def calculConcentrationsEuler(intervalle,C0) :
     
     z0, zf = intervalle
-    n = 50 #nbre pas
+    n = 5000 #nbre pas
     h = (zf - z0)/n #taille pas
+    z = np.arange(z0, zf + h, h)
     C_F = np.copy(C0)
 
     for i in range(n):
@@ -16,9 +17,9 @@ def calculConcentrationsEuler(intervalle,C0) :
         C0 = C_temp
         C_F = np.vstack((C_F, C0))
 
-    return C_F
+    return z, C_F
 
-#a = calculConcentrationsEuler(intervalleIntegration, C_0)
+z, C = calculConcentrationsEuler(intervalleIntegration, C_0)
 
 def calculConcentrationsIVP(intervalle, C0):
     
