@@ -1,47 +1,31 @@
+import numpy as np
 from Constantes import C_0, intervalleIntegration
 from Odefunction import odefunction
 import scipy as sci
-import numpy as np
 
-def calculConcentrationsEuler(intervalle,C_0) :
-    print(C_0)
-    n = 10  #nombre de pas
-    h = (intervalle[0]-intervalle[1])/n
-    C = np.zeros((n + 1, len(C_0)))
-    C_temp = C_0
+def calculConcentrationsEuler(intervalle,C0) :
     
-   '''for i in range(n) :
-        for j in range(len(C_0)):
-            print("C0 :")
-            print(C_0)
-            C_temp = np.zeros(len(C_0))
-            C_temp = odefunction(intervalle[0] + i * h, C[:,i])
-            C_0 = C_0 + h * C_temp
-            C[:,i] = C_0
-            print("C :")
-            print(C)'''
-            
-            
-    for i in range(n) :
-        print("C0 :")
-        print(C_0)
-        C[i] = Cz
-        Cz = odefunction(intervalle[0] + (i + 1) * h, C_temp)
-        
-        
-        
-        
-        
-        print("C :")
-        print(C)
-    return h,C
+    z0, zf = intervalle
+    n = 50 #nbre pas
+    h = (zf - z0)/n #taille pas
+    C_F = np.copy(C0)
 
-z, C = calculConcentrationsEuler(intervalleIntegration,C_0)
+    for i in range(n):
+        C_temp = odefunction(intervalle[0] + i * h, C0)
+        C_temp = C0 + h * C_temp
+        C0 = C_temp
+        C_F = np.vstack((C_F, C0))
 
-'''def calculConcentrationsIVP(intervalle, C_0):
+    return C_F
+
+#a = calculConcentrationsEuler(intervalleIntegration, C_0)
+
+def calculConcentrationsIVP(intervalle, C0):
     
-    solve = sci.integrate.solve_ivp(odefunction, intervalleIntegration, C_0, method='RK45')
-    print(solve.success)
-    print(C_0)
-z, C = calculConcentrationsIVP(intervalleIntegration, C_0)'''
+    solve = sci.integrate.solve_ivp(lambda z, C: odefunction(z, C), intervalle, C0)
+    z = solve.t
+    C = solve.y[:,:]
     
+    return z, C
+    
+#z, C = calculConcentrationsIVP(intervalleIntegration, C_0)
