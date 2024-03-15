@@ -1,14 +1,20 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from SimReacteur import z, C
+import numpy as np
 
 x = z
 
-y = C
+y = np.transpose(C)
 
-for i in range(len(C)):
+plt.plot(x, y[:, 0], label="Concentration CH4")
+plt.plot(x, y[:, 1], label="Concentration H2O")
+plt.plot(x, y[:, 2], label="Concentration H2")
+plt.plot(x, y[:, 3], label="Concentration CO")
+plt.plot(x, y[:, 4], label="Concentration CO2")
 
-    plt.plot(x, y[:,i])
+plt.legend()
+plt.title('Graphique des concentrations')
     
     
-plt.show
+plt.show()
