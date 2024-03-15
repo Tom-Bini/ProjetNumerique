@@ -18,7 +18,7 @@ plt.title('Graphique des concentrations') #affichage du titre
 
 plt.show() #affichage du graphique 1
 
-fig, ax1 = plt.subplots() #créé une figure et y afficher un axe
+fig, ax1 = plt.subplots() #créé une figure et y affiche un axe
 
 ax2 = ax1.twinx() #définition d'un nouvel axe "jumeau" au premier
 ax3 = ax2.twinx() #définition d'un nouvel axe "jumeau" au deuxième 
