@@ -20,9 +20,9 @@ def calculConcentrationsEuler(intervalle,C0) :
 
 #z, C = calculConcentrationsEuler(intervalleIntegration, C_0)
 
-def calculConcentrationsIVP(intervalle, C0):
+def calculConcentrationsIVP(intervalle, C0, u_s = 1):
     
-    solve = sci.integrate.solve_ivp(lambda z, C: odefunction(z, C), intervalle, C0, max_step = 10**(-3), rtol=1e-5)
+    solve = sci.integrate.solve_ivp(lambda z, C: odefunction(z, C, u_s), intervalle, C0, max_step = 10**(-3), rtol=1e-5)
     z = solve.t
     C = solve.y[:,:]
     

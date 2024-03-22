@@ -1,5 +1,5 @@
 import numpy as np
-C_tot = 1/22.4      #Cencentration totale en z = O (1/22,4 mol/L ou kmol/m^3)
+C_tot = 1/22.4      #Concentration totale en z = O (1/22,4 mol/L ou kmol/m^3)
 C_CH4 = 1/4 * C_tot       #Concentration de CH4
 C_H2O = 3/4 * C_tot       #Concentration de H2O
 C_H2 = 0.01      #Concentration de H2
@@ -45,5 +45,7 @@ V = z_f * np.pi * (D_R / 2) ** 2
 rho_s = (W_cat + W_CaO) / ((W_cat / rho_Cat) + (W_CaO / rho_CaO))    #Masse volumique moyenne des deux solides au sein du réacteur
 intervalleIntegration = [0,0.29]
 k0_z = k_g * (epsilon + ((1 - epsilon)/((0.139 * epsilon) - 0.0339 + (2/3) * (k_g/k_s))))
+Y = 7.5
+tolerence = 10e-5
 
 C_0 = np.array([C_CH4,C_H2O,C_H2,C_CO,C_CO2,X,T,P])       #Tableau des états initiaux 
