@@ -40,7 +40,7 @@ def bissection(f,x0,x1,tol): #définition de la fonction bissection qui prend en
     
     if abs(y0) < tol:  #si y0 ou -y0 est inférieur à la tolérence alors x0 est une racine donc on retourne la racine sans faire le calcul
         return x0, statut
-    if abs(y0) < tol: #même chose que pour y0
+    if abs(y1) < tol: #même chose que pour y0
         return x1, statut
     if y0 * y1 > 0: #on regarde le signe des images, si elles ont le même signe alors il n'y a pas de racine entre les bornes x0 et x1
         statut = 1 #on change le statut pour montrer une erreur
