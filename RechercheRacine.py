@@ -1,5 +1,5 @@
-def secante(f,x0,x1,tol):
-    nmax = 1000
+def secante(f, x0, x1, tol, nmax = 1000):
+    
     y0 = f(x0)
     y1 = f(x1)
     
@@ -14,6 +14,7 @@ def secante(f,x0,x1,tol):
     y2 = 10 #ajout d'une valeur arbitraire à y2 pour entrer dans la boucle (elle n'aura aucune influence sur le calcul car elle n'est pas utilisée avant d'être remplacée par f(x2)
         
     while abs(y1) > tol and n < nmax:
+        
         
         if y1 - y0 == 0:
             statut = 1
@@ -32,8 +33,7 @@ def secante(f,x0,x1,tol):
                 
     return x1, statut
 
-def bissection(f,x0,x1,tol):
-    nmax = 100
+def bissection(f, x0, x1, tol, nmax = 1000):
     y0 = f(x0)
     y1 = f(x1)
     
@@ -60,7 +60,7 @@ def bissection(f,x0,x1,tol):
     x2 = 0.0
     y2 = y0 #attribution d'une valeur à y2 pour entrer dans la boucle
     
-    while abs(x1-x0) > tol and n < nmax :
+    while abs(x1 - x0) > tol and n < nmax :
         x2 = (x0 + x1) / 2
         y2 = f(x2)
             
