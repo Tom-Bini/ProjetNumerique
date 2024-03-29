@@ -11,8 +11,7 @@ def secante(f,x0,x1,tol): #définition de la fonction sécante qui prend en argu
         return x1, statut
         
     n = 0 #initialisation de n à 0 pour compter le nombre d'itération de la boucle
-    y2 = 10 #ajout d'une valeur arbitraire à y2 pour entrer dans la boucle (elle n'aura aucune influence sur le calcul car elle n'est pas utilisée avant d'être remplacée par f(x2)
-        
+    
     while abs(y1) > tol and n < nmax: #gardien de boucle qui permet d'enter dans la boucle si la racine trouvée n'entre pas dans la tolérence et si le nombre d'itération est inférieur à nmax
         
         if y1 - y0 == 0: #barrière pour éviter une division par 0 lors de l'application du calcul de la sécante
