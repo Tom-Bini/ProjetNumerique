@@ -41,7 +41,7 @@ def bissection(f, x0, x1, tol, nmax = 1000):
     
     if abs(y0) < tol:
         return x0, statut
-    if abs(y0) < tol:
+    if abs(y1) < tol:
         return x1, statut
     if y0 * y1 > 0:
         statut = 1
