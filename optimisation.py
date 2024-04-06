@@ -22,5 +22,19 @@ def optimisation(u_s, C_0, Y):
     
   return u_s, status
   
-  
 u_s_f, status = optimisation(u_S, C_0, Y)
+
+tabT = np.arange(T - 12,T + 12, 10 ** (-3))
+
+def variationDeUsf(u_s,c,tabT):
+    
+    tabUsf = np.zeros(len(tabT))
+    
+    for i in range(len(tabT)):
+        
+        C_0[6] = tabT[i]
+        tabUsf[i], _ = optimisation(u_s, C_0, Y)
+        
+    return tabUsf
+
+Y = variationDeUsf(u_S,C_0,tabT)
