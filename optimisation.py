@@ -1,4 +1,4 @@
-from Constantes import u_S, C_0, Y, intervalleIntegration, tolerence
+from Constantes import u_S, C_0, Y, intervalleIntegration, tolerence,T
 import numpy as np
 from SimReacteur import calculConcentrationsIVP
 from RechercheRacine import secante
