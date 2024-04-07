@@ -14,8 +14,6 @@ def FonctionDeUg(u_s): #définition de la fonction "FonctionDeUg" qui prend un a
     C_f_CO2 = C_f[4]
     C_f_tot_sec = C_f_CH4 + C_f_H2 + C_f_CO + C_f_CO2 #calcul de la somme des concentrations (sauf de h2o)
     y = ((C_f_CO2 / C_f_tot_sec) * 100) - Y #calcul de l'ordonnée (concentration) par rapport l'absice (u_S)
-    print("cTot:", C_f_tot_sec)
-    print("pourcent :", y)
     
     return y
 
