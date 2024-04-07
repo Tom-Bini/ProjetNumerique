@@ -26,7 +26,7 @@ def optimisation(u_s, C_0, Y): #définition qui prend 3 arguments pour les passe
   
 u_s_f, status = optimisation(u_S, C_0, Y) #on écrit dans u_s_f le u_S optimal pour le fonctionnement du réacteur
 
-tabT = np.arange(T - 12,T + 12, 10 ** (-3))
+tabT = np.arange(T - 12,T + 12, 0.1)
 
 def variationDeUsf(u_s,c,tabT):
     
