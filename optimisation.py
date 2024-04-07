@@ -19,7 +19,7 @@ def FonctionDeUg(u_s): #définition de la fonction "FonctionDeUg" qui prend un a
 
 def optimisation(u_s, C_0, Y): #définition qui prend 3 arguments pour les passer à secante qui appelle fonctionDeUg, qui utilise Y et fonctionDeUg appelle calculConcentrationsIVP qui utilise C_0 et u_s
 
-  u_s, status = secante(FonctionDeUg, 10e-6, 1, tolerence) #on calcul le point où la fonction est optimale
+  u_s, status = secante(FonctionDeUg, 10e-5, 0.11, tolerence) #on calcul le point où la fonction est optimale
     
   return u_s, status #on retourne le point optimal
   
