@@ -64,8 +64,7 @@ def odefunction(z, c, u_S): #définition de la fonction "odefunction" qui prend 
         h_W = 6.15 * (k0_z / D_R)
     elif Rep > 20 and 0.05 < (d_p / D_R) < 0.3 :
         h_W = 2.03 * (k_g / D_R) * Rep ** 0.8 * np.exp(-6 * d_p / D_R)
-    else :
-        print("Erreur avec le h_W") #retourne une erreur si le calcul de h_W est impossible
+    else : #retourne une erreur si le calcul de h_W est impossible
         return dC
     
     r_CO = R_1 - R_3 #calcul des r
